@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 export default function MainHome() {
+  const hasIncompleteHistory = false;
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
       {/* 헤더: 전체 너비로 패딩 제거 */}
@@ -26,7 +27,7 @@ export default function MainHome() {
       {/* 메인 콘텐츠: 패딩 포함 */}
       <div className="flex flex-col items-center gap-5 bg-gray-100 flex-1 w-full px-4 max-w-[900px]">
         {/* 섹션 1 */}
-        <div className="w-[328px] h-[229px] shrink-0 [background:var(--Gray08,#FAFAFA)] rounded-[50px_200px_28px_28px]">
+        <div className="w-[328px] min-h-[229px] shrink-0 [background:var(--Gray08,#FAFAFA)] rounded-[50px_200px_28px_28px]">
           <div className="flex flex-row items-center w-full text-black">
             <span className="text-[24px] font-bold pl-6">
               박정수님, <br />
@@ -53,14 +54,16 @@ export default function MainHome() {
                 알림
               </span>
             </div>
-            <div className="pl-2 text-black mt-2 text-base font-normal">
-              알림이 없습니다.
+            <div className="pl-2 pr-7 text-black mt-2 text-base font-normal w-full break-words whitespace-normal mb-4">
+              {hasIncompleteHistory
+                ? "알림이 없습니다."
+                : "신청하신 환급 내역에서 미비사항이 확인됐습니다. 원활한 환급 처리를 위해 서류를 추가로 제출해주시기 바랍니다."}
             </div>
           </div>
         </div>
 
         {/* 환급 신청 영역 */}
-        <div className="flex flex-col gap-5 w-full mt-5 mb-5">
+        <div className="flex flex-col gap-5 w-full mb-5">
           {/* 버튼 */}
           <div className="flex h-[87px] items-center justify-start w-full bg-[#006F83] px-6 py-5 rounded-[28px] ">
             <span className="text-white text-lg font-bold leading-[140%]">
