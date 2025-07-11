@@ -1,15 +1,15 @@
 export default function MainHome() {
   return (
-    <div className="bg-gray-100 mx-auto px-4 max-w-[900px] min-h-screen flex flex-col">
-      {/* 헤더 */}
-      <div className="flex w-full justify-between items-center py-4 text-black">
+    <div className="bg-gray-100 min-h-screen flex flex-col items-center">
+      {/* 헤더: 전체 너비로 패딩 제거 */}
+      <div className="w-full max-w-[900px] flex justify-between items-center py-4 text-black">
         로고영역
       </div>
 
-      {/* 메인 콘텐츠 */}
-      <div className="flex flex-col items-center gap-5 bg-gray-100 mt-6 flex-1">
+      {/* 메인 콘텐츠: 패딩 포함 */}
+      <div className="flex flex-col items-center gap-5 bg-gray-100 flex-1 w-full px-4 max-w-[900px]">
         {/* 섹션 1 */}
-        <div className="w-full h-[229px] bg-[#FAFAFA] rounded-[50px_200px_28px_28px]">
+        <div className="w-full h-[229px] bg-[#FAFAFA] rounded-[50px_200px_28px_28px] mt-6">
           섹션1
         </div>
 
@@ -34,8 +34,8 @@ export default function MainHome() {
         </div>
       </div>
 
-      {/* 푸터 */}
-      <div className="flex flex-col justify-center items-center gap-2.5 py-10 text-black w-full">
+      {/* 푸터: 전체 너비로 패딩 제거 */}
+      <div className="w-full max-w-[900px] flex flex-col justify-center items-center gap-2.5 py-10 text-black">
         푸터 영역
       </div>
     </div>
