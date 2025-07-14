@@ -24,3 +24,89 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  /* 색상 */
+  --color-primary-main: #006f83;
+  --color-secondary-sub01: #f37021;
+  --color-secondary-sub02: #952168;
+  --color-secondary-sub03: #74cee2;
+  --color-gray-800: #222222;
+  --color-gray-700: #959595;
+  --color-gray-600: #757575;
+  --color-gray-500: #aaaaaa;
+  --color-gray-400: #cccccc;
+  --color-gray-300: #dfdfdf;
+  --color-gray-200: #efefef;
+  --color-gray-100: #f9f9f9;
+  --color-gray-0: #ffffff;
+  --color-status-error: #036c31;
+  --color-status-success: #036c31;
+
+  /* 폰트 */
+  --font-pretendard: "Pretendard", sans-serif;
+
+  /* 타이포그래피 */
+  --font-title-01: 32px;
+  --line-title-01: 44px;
+  --weight-title-01: 700;
+
+  --font-title-02: 28px;
+  --line-title-02: 40px;
+  --weight-title-02: 700;
+}
+
+/* 예시 */
+@layer components {
+  .btn-primary {
+    border-radius: calc(infinity * 1px);
+    background-color: var(--color-violet-500);
+    padding-inline: --spacing(5);
+    padding-block: --spacing(2);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-violet-700);
+      }
+    }
+  }
+
+  .title-01 {
+    color: var(--color-gray-700, #222);
+    font-family: var(--font-pretendard);
+    font-size: var(--font-title-01);
+    font-weight: var(--weight-title-01);
+    line-height: 140%;
+  }
+}
+
+/* 유틸리티 */
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* 베이스 레이아웃 예시 */
+@layer base {
+  body {
+    font-family: var(--font-pretendard);
+    background-color: var(--color-gray-0);
+    color: var(--color-gray-800);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+}
+
+/* 베이스 레이아웃 */
+@layer base {
+}

@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function MainHome() {
   const hasIncompleteHistory = false;
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center">
+    <div className="bg-orange-100 min-h-screen flex flex-col items-center">
       {/* 헤더: 전체 너비로 패딩 제거 */}
       <div className="w-full max-w-[900px] flex justify-between items-center py-4 text-black px-5">
         <Image
