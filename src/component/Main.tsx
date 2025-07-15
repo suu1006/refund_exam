@@ -1,69 +1,93 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import FadeUp from "./FadeUp";
 import Button from "./Button";
 import Image from "next/image";
-
-function Card({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-xs">
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </div>
-  );
-}
+import { useState } from "react";
 
 export default function Main() {
-  const [showSecond, setShowSecond] = useState(false);
-  const [showThird, setShowThird] = useState(false);
-
   const icons = [
-    "/icons/js.png",
-    "/icons/figma.png",
-    "/icons/bootstrap.png",
-    "/icons/photoshop.png",
-    "/icons/illustrator.png",
-    "/icons/xd.png",
-    "/icons/jquery.png",
-    "/icons/html.png",
+    "/icons/java.png",
+    "/icons/springboot.png",
+    "/icons/react.png",
+    "/icons/nextjs.png",
+    "/icons/react-query.png",
+    "/icons/tailwindcss.png",
+    "/icons/typescript.png",
+    "/icons/prisma.png",
+    "/icons/aws-codecommit.png",
   ];
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const secondPageHeight = windowHeight * 5;
+  const categories = ["FrontEnd", "BackEnd", "Database", "ETC"];
 
-      if (scrollY < 200) {
-        // 첫 번째 페이지
-        if (showSecond || showThird) {
-          setShowSecond(false);
-          setShowThird(false);
-        }
-      } else if (scrollY >= 200 && scrollY < secondPageHeight + 200) {
-        // 두 번째 페이지 (200vh 높이 + offset 200)
-        if (!showSecond || showThird) {
-          setShowSecond(true);
-          setShowThird(false);
-        }
-      } else if (scrollY >= secondPageHeight + 200) {
-        // 세 번째 페이지
-        if (!showThird || showSecond) {
-          setShowSecond(false);
-          setShowThird(true);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [showSecond, showThird]);
+  const skills = [
+    {
+      src: "/icons/html5.png",
+      title: "HTML5",
+      desc: "기본적인 HTML 태그를 사용할 수 있습니다.",
+      category: "FrontEnd",
+    },
+    {
+      src: "/icons/css3.png",
+      title: "CSS3",
+      desc: "순수 CSS만을 이용하여 레이아웃을 구성할 수 있습니다.",
+      category: "FrontEnd",
+    },
+    {
+      src: "/icons/javascript.png",
+      title: "JavaScript",
+      desc: "ES6+ 문법을 활용하여 코드를 작성할 수 있습니다.",
+      category: "FrontEnd",
+    },
+    {
+      src: "/icons/typescript.png",
+      title: "TypeScript",
+      desc: "제네릭, 유틸리티 타입 등을 이용하여 명확한 코드를 작성할 수 있습니다.",
+      category: "FrontEnd",
+    },
+    {
+      src: "/icons/react.png",
+      title: "React",
+      desc: "컴포넌트 기반 UI를 구성하고 상태 관리를 할 수 있습니다.",
+      category: "FrontEnd",
+    },
+    {
+      src: "/icons/nextjs.png",
+      title: "Next.js",
+      desc: "SSR/CSR을 적절히 활용할 수 있습니다.",
+      category: "FrontEnd",
+    },
+    {
+      src: "/icons/java.png",
+      title: "Java",
+      desc: "학부 시절부터 사용해온 언어로, 다양한 과제를 수행했습니다.",
+      category: "BackEnd",
+    },
+    {
+      src: "/icons/springboot.png",
+      title: "Spring Boot",
+      desc: "REST API 서버를 구현할 수 있습니다.",
+      category: "BackEnd",
+    },
+    {
+      src: "/icons/prisma.png",
+      title: "Prisma",
+      desc: "ORM을 활용하여 DB와 타입 안정성 있게 연동할 수 있습니다.",
+      category: "Database",
+    },
+    {
+      src: "/icons/aws-codecommit.png",
+      title: "CodeCommit",
+      desc: "AWS 환경에서 Git 저장소를 연동할 수 있습니다.",
+      category: "ETC",
+    },
+  ];
 
   return (
     <>
-      <section className="fixed inset-0 flex flex-col items-center justify-center text-center bg-gray-800 text-white px-4 z-0">
+      {/* 첫 번째 페이지 */}
+      <section className="min-h-screen flex flex-col items-center justify-center text-center bg-gray-800 text-white px-4">
         <FadeUp
           delay={0}
           className="text-[7vw] md:text-[6vw] font-extrabold leading-tight select-none">
@@ -82,100 +106,126 @@ export default function Main() {
         </FadeUp>
       </section>
 
-      <motion.section
-        initial={{ y: "100%" }}
-        animate={showSecond ? { y: 0 } : { y: "100%" }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        style={{ minHeight: "1000vh" }} // 여기에 길이 지정
-        className="fixed inset-0 bg-white text-black flex flex-col px-4 z-10">
-        <FadeUp delay={0} className="text-5xl font-bold">
-          두 번째 페이지
-        </FadeUp>
-        <FadeUp delay={0.6} className="mt-4 max-w-lg text-lg mx-auto">
-          사용하는 기술 스택입니다.
-        </FadeUp>
-        {/* 아이콘 리스트 */}
-        <div className="overflow-hidden w-full mt-12">
-          <motion.div
-            className="flex gap-8"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              duration: 20,
-              ease: "linear",
-              repeat: Infinity,
-            }}>
-            {[...icons, ...icons].map((src, index) => (
-              <Image
-                key={index}
-                src={src}
-                alt="stack"
-                width={50}
-                height={50}
-                className="rounded-md"
-              />
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
+      {/* 두 번째 페이지 */}
+      <section className="min-h-screen bg-white text-black px-4 py-20 flex flex-col items-center">
+        <h2 className="text-4xl font-bold mb-4">기술 스택</h2>
+        <p className="text-gray-600 mb-12 text-center">
+          제가 다룰 수 있는 기술들을 분류별로 소개합니다.
+        </p>
 
-      <div style={{ height: "200vh" }} />
-
-      <motion.section
-        initial={{ y: "100%" }}
-        animate={showThird ? { y: 0 } : { y: "100%" }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="fixed inset-0 bg-gray-100 text-black flex flex-col items-center justify-center text-center px-4 z-20">
-        <FadeUp delay={0} className="text-5xl font-bold">
-          세 번째 페이지
-        </FadeUp>
-        <FadeUp delay={0.6} className="mt-4 max-w-lg text-lg mx-auto">
-          프로젝트 포트폴리오입니다.
-        </FadeUp>
-
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold mb-2">프로젝트 1</h3>
-            <p className="text-gray-600 mb-4">프로젝트 설명이 들어갑니다.</p>
-            <div className="flex gap-2">
-              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
-                React
-              </span>
-              <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
-                Next.js
-              </span>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-7xl w-full">
+          {/* 카테고리 */}
+          <div className="col-span-1 flex flex-col">
+            <span className="text-[#4fffd7] font-bold text-xl mb-6 border-l-4 border-[#4fffd7] pl-4">
+              Categories
+            </span>
+            <div className="flex flex-col gap-4 pl-4">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`text-left transition font-medium ${
+                    selectedCategory === cat
+                      ? "text-black font-semibold"
+                      : "text-gray-600 hover:text-black"
+                  }`}>
+                  {cat}
+                </button>
+              ))}
             </div>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold mb-2">프로젝트 2</h3>
-            <p className="text-gray-600 mb-4">프로젝트 설명이 들어갑니다.</p>
-            <div className="flex gap-2">
-              <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
-                TypeScript
-              </span>
-              <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">
-                Tailwind
-              </span>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
+          </div>
 
-      <section className="mt-[200vh] px-6 py-16 bg-gray-50 flex flex-wrap justify-center gap-8">
-        <Card title="카드 1" description="첫 번째 카드 설명입니다." />
-        <Card title="카드 2" description="두 번째 카드 설명입니다." />
-        <Card title="카드 3" description="세 번째 카드 설명입니다." />
-        <Card title="카드 4" description="네 번째 카드 설명입니다." />
+          {/* 카드 */}
+          <div className="col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <AnimatePresence>
+              {skills.map((skill, i) => (
+                <motion.div
+                  key={skill.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3, delay: i * 0.1 }}
+                  className="bg-gray-50 rounded-xl shadow-md p-6 flex items-start gap-4 hover:shadow-lg transition">
+                  <Image
+                    src={skill.src}
+                    alt={skill.title}
+                    width={50}
+                    height={50}
+                  />
+                  <div>
+                    <h3 className="text-xl font-semibold">{skill.title}</h3>
+                    <p className="text-gray-500 text-sm mt-1">{skill.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
       </section>
 
-      <div className="h-[200vh]" />
-      <div className="fixed bottom-4 left-4 text-xs text-gray-500 select-none z-20">
-        update. 24. 12. 21
-      </div>
-      <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-20">
+      {/* 세 번째 페이지 */}
+      <section className="min-h-screen bg-gray-100 text-black flex flex-col items-center justify-center text-center px-4">
+        <FadeUp delay={0} className="text-5xl font-bold">
+          프로젝트 포트폴리오
+        </FadeUp>
+        <FadeUp delay={0.6} className="mt-4 max-w-lg text-lg mx-auto">
+          프로젝트 설명이 들어갑니다.
+        </FadeUp>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* 카드 예시 */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div className="md:w-1/2 h-56 md:h-auto relative">
+              <Image
+                src="/images/refund_main.png" // 프로젝트 대표 이미지
+                alt="refund_project"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="p-8 flex flex-col justify-center md:w-1/2">
+              <h3 className="text-2xl font-bold mb-2 text-left">프로젝트 1</h3>
+              <p className="text-gray-600 mb-4 text-left">
+                간단한 설명이 들어갑니다.
+              </p>
+              <div className="flex gap-2 mb-2">
+                <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                  React
+                </span>
+                <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                  Next.js
+                </span>
+              </div>
+              <span className="text-xs text-gray-400 text-left">2024.06</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 네번째 페이지 */}
+      <section className="min-h-screen bg-[#111827] text-white flex flex-col items-center justify-center text-center px-4">
+        <FadeUp delay={0} className="text-5xl font-bold">
+          Contact
+        </FadeUp>
+        <FadeUp delay={0.6} className="mt-4 text-lg max-w-md mx-auto">
+          정수에게 연락하시려면 아래 버튼을 클릭하세요.
+        </FadeUp>
+        <div className="mt-8">
+          <Button
+            onClick={() =>
+              (window.location.href = "mailto:jeongsuu1006@gmail.com")
+            }
+            icon="📧"
+          />
+        </div>
+      </section>
+
+      {/* 고정 버튼 */}
+      <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-40">
         <Button onClick={() => alert("Chat function will be here")} icon="💬" />
         <Button
           onClick={() =>
