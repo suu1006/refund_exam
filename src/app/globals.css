@@ -71,6 +71,9 @@ body {
         background-color: var(--color-violet-700);
       }
     }
+    .motion-text {
+      @apply text-3xl font-bold text-center text-gray-500;
+    }
   }
 
   .title-01 {
